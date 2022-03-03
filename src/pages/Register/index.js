@@ -88,7 +88,7 @@ export default function Register({ navigation }) {
       axios
         .post('https://mysukha.zavalabs.com/api/register.php', data)
         .then(res => {
-          console.log(res);
+          console.warn(res.data);
           let err = res.data.split('#');
 
           // console.log(err[0]);

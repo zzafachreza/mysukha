@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,42 +7,22 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {tan} from 'react-native-reanimated';
-import {colors} from '../../utils/colors';
-import {fonts, windowWidth} from '../../utils/fonts';
+import { tan } from 'react-native-reanimated';
+import { colors } from '../../utils/colors';
+import { fonts, windowWidth } from '../../utils/fonts';
 import axios from 'axios';
-import {getData} from '../../utils/localStorage';
+import { getData } from '../../utils/localStorage';
 import PushNotification from 'react-native-push-notification';
 import messaging from '@react-native-firebase/messaging';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {MyButton} from '../../components';
-import {useIsFocused} from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { MyButton } from '../../components';
+import { useIsFocused } from '@react-navigation/native';
 
-export default function ListRedeem({navigation}) {
+export default function ListRedeem({ navigation }) {
   const isFocused = useIsFocused();
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
 
-  messaging().onMessage(async remoteMessage => {
-    // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    const json = JSON.stringify(remoteMessage);
-    const obj = JSON.parse(json);
-    // alert(obj.notification);
-    // console.log('list transaksi', obj.notification);
-    getData('user').then(res => {
-      setUser(res);
-      // console.log(res);
-
-      axios
-        .post('https://zavalabs.com/sigadisbekasi/api/redeem.php', {
-          id_member: res.id,
-        })
-        .then(res => {
-          // console.log(res.data);
-          setData(res.data);
-        });
-    });
-  });
 
   useEffect(() => {
     if (isFocused) {
@@ -85,7 +65,7 @@ export default function ListRedeem({navigation}) {
                 backgroundColor: colors.white,
               }}>
               <TouchableOpacity>
-                <View style={{flex: 1, padding: 10}}>
+                <View style={{ flex: 1, padding: 10 }}>
                   <Text
                     style={{
                       fontFamily: fonts.secondary[600],
@@ -103,7 +83,7 @@ export default function ListRedeem({navigation}) {
                     {item.nama_lengkap} ( {item.tanggal} )
                   </Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   <View
                     style={{
                       flex: 1,
@@ -149,7 +129,7 @@ export default function ListRedeem({navigation}) {
               </TouchableOpacity>
 
               {item.status === 'SEDANG DIPROSES' && (
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       flex: 1,
@@ -200,7 +180,7 @@ export default function ListRedeem({navigation}) {
               )}
 
               {item.status === 'SELESAI' && (
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       flex: 1,

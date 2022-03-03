@@ -14,37 +14,29 @@ export default function App() {
 
   PushNotification.createChannel(
     {
-      channelId: 'zvl-wandahelektronik', // (required)
-      channelName: 'wandahelektronik', // (required)
+      channelId: 'mysukha_tri_sukma', // (required)
+      channelName: 'mysukha', // (required)
       channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
       playSound: true, // (optional) default: true
       soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
       vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      local_notification: true, // prevent loop
     },
     created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
   );
-
-  const getPushNotifikasi = (title, body) => {
-    PushNotification.localNotification({
-      /* Android Only Properties */
-      channelId: 'zvl-wandahelektronik', // (required) channelId, if the channel doesn't exist, notification will not trigger.
-      title: title, // (optional)
-      message: body, // (required)
-    });
-  };
 
   // Must be outside of any component LifeCycle (such as `componentDidMount`).
   PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function (token) {
-      // console.log('TOKEN:', token);
+      console.warn('TOKEN SAYA:', token);
       storeData('token', token);
     },
 
     // (required) Called when a remote is received or opened, or local notification is opened
     onNotification: function (notification) {
       // console.log('NOTIFICATION:', notification);
-      getPushNotifikasi(notification.title, notification.message);
+      // getPushNotifikasi(notification.title, notification.message);
     },
 
     // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)

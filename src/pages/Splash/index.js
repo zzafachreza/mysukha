@@ -62,7 +62,7 @@ export default function Splash({ navigation }) {
         // console.log('beum login');
 
         setTimeout(() => {
-          navigation.replace('Login');
+          navigation.replace('GetStarted');
         }, 1500);
       } else {
         console.log('sudah login logon');

@@ -26,6 +26,7 @@ import 'intl/locale-data/jsonp/en';
 import MyTerbaik2 from '../../components/MyTerbaik2';
 import MyTerbaik3 from '../../components/MyTerbaik3';
 import MyDashboard from '../../components/MyDashboard';
+import PushNotification from 'react-native-push-notification';
 
 export default function Home({ navigation }) {
   const [user, setUser] = useState([]);
@@ -33,39 +34,31 @@ export default function Home({ navigation }) {
   const [tipe, setTipe] = useState('');
   const [company, setCompany] = useState({});
 
-  messaging().onMessage(async remoteMessage => {
-    // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    const json = JSON.stringify(remoteMessage);
-    const obj = JSON.parse(json);
-    // alert(obj.notification);
-    // console.log('list transaksi', obj.notification);
-    getData('user').then(res => {
-      setUser(res);
-      // console.log(res);
-      // alert('email' + res.email + ' dan password ' + res.password);
 
-      axios
-        .post('https://zavalabs.com/sigadisbekasi/api/point.php', {
-          id_member: res.id,
-        })
-        .then(respoint => {
-          setPoint(respoint.data);
-          console.log('get apoint', respoint.data);
-        });
 
-      axios
-        .post('https://zavalabs.com/sigadisbekasi/api/get_member.php', {
-          email: res.email,
-          password: res.password,
-        })
-        .then(rese => {
-          setUser(rese.data);
-          storeData('user', rese.data);
-        });
-    });
-  });
+
+
+
 
   useEffect(() => {
+
+
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+
+      const json = JSON.stringify(remoteMessage);
+      const obj = JSON.parse(json);
+
+      PushNotification.localNotification({
+        /* Android Only Properties */
+        channelId: 'mysukha_tri_sukma', // (required) channelId, if the channel doesn't exist, notification will not trigger.
+        title: obj.notification.title, // (optional)
+        message: obj.notification.body, // (required)
+      });
+    });
+
+
+
+
     getData('company').then(res => {
       setCompany(res);
     });
@@ -74,33 +67,29 @@ export default function Home({ navigation }) {
       setTipe(res);
     });
 
-    getData('user').then(res => {
-      console.log(res);
-      setUser(res);
+    getData('user').then(users => {
+      console.log(users);
+      setUser(users);
 
-      axios
-        .post('https://mysukha.zavalabs.com/api/point.php', {
-          id_member: res.id,
-        })
-        .then(respoint => {
-          setPoint(respoint.data);
-          console.log('get apoint', respoint.data);
-        });
 
       getData('token').then(res => {
         console.log('data token,', res);
         setToken(res.token);
+
+        axios
+          .post('https://mysukha.zavalabs.com/api/update_token.php', {
+            id: user.id,
+            token: res.token,
+          })
+          .then(res => {
+            console.error('update token', res.data);
+          });
       });
+
+
     });
 
-    axios
-      .post('https://mysukha.zavalabs.com/api/update_token.php', {
-        id_member: user.id,
-        token: token,
-      })
-      .then(res => {
-        console.log('update token', res);
-      });
+    return unsubscribe;
   }, []);
 
   const windowWidth = Dimensions.get('window').width;

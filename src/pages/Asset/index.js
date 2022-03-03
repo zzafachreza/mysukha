@@ -9,11 +9,13 @@ import {
     RefreshControl,
     Image,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import { storeData, getData } from '../../utils/localStorage';
 import axios from 'axios';
 import { colors } from '../../utils/colors';
 import { windowWidth, fonts } from '../../utils/fonts';
+import { MyButton } from '../../components';
 
 const wait = timeout => {
     return new Promise(resolve => {
@@ -34,6 +36,37 @@ export default function ({ navigation, route }) {
         getDataBarang();
     }, []);
 
+
+    const updateStatusAsset = (x, y) => {
+        // alert(x + ' ' + y);
+        axios.post('https://mysukha.zavalabs.com/api/absen_asset_update.php', {
+            id_asset: x,
+            status_asset: y,
+        }).then(res => {
+            getDataBarang();
+        })
+
+    }
+
+    const confirmAsset = (x, y) => {
+        Alert.alert(
+            "Apakah asset ini milik Anda ?",
+            y,
+            [
+
+                {
+                    text: "TIDAK",
+                    onPress: () => updateStatusAsset(x, 'TIDAK'),
+
+                },
+                {
+                    text: "YA", onPress: () => updateStatusAsset(x, 'YA')
+
+                }
+            ]
+        );
+    }
+
     const getDataBarang = () => {
         getData('user').then(res => {
             axios
@@ -48,7 +81,7 @@ export default function ({ navigation, route }) {
     };
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity
+        <View
             style={{
                 padding: 10,
                 margin: 10,
@@ -87,7 +120,26 @@ export default function ({ navigation, route }) {
                     width: '100%', height: 250, resizeMode: 'contain'
                 }} />
             </View>
-        </TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+
+                {item.status_asset == "YA" && (
+                    <Text style={{ flex: 1, backgroundColor: colors.success, padding: 10, margin: 10, textAlign: 'center', color: colors.white }}>ASSET SAYA</Text>
+                )}
+
+                {item.status_asset == "TIDAK" && (
+                    <Text style={{ flex: 1, backgroundColor: colors.danger, padding: 10, margin: 10, textAlign: 'center', color: colors.white }}>BUKAN ASSET SAYA</Text>
+                )}
+
+
+                <TouchableOpacity style={{
+                    flex: 1, backgroundColor: colors.primary, padding: 10, margin: 10,
+                }} onPress={() => confirmAsset(item.id, `${item.nama_asset} Rp. ${item.harga_asset}`)}
+                >
+                    <Text style={{ textAlign: 'center', color: colors.white }}>KONFIRMASI</Text>
+                </TouchableOpacity>
+
+            </View>
+        </View>
     );
 
     return (

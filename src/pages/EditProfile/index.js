@@ -12,12 +12,13 @@ import {
 } from 'react-native';
 import { colors } from '../../utils/colors';
 import { fonts } from '../../utils/fonts';
-import { MyInput, MyGap, MyButton } from '../../components';
+import { MyInput, MyGap, MyButton, MyPicker } from '../../components';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 import { getData, storeData } from '../../utils/localStorage';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { showMessage } from 'react-native-flash-message';
+import DatePicker from 'react-native-date-picker';
 
 export default function EditProfile({ navigation, route }) {
   navigation.setOptions({
@@ -33,6 +34,8 @@ export default function EditProfile({ navigation, route }) {
     password: null,
     tlp: null,
     alamat: null,
+    divisi: null,
+    jabatan: null,
   });
 
   const options = {
@@ -153,8 +156,22 @@ export default function EditProfile({ navigation, route }) {
             })
           }
         />
+        <MyGap jarak={10} />
+        <MyInput
+          label="Password"
+          placeholder="Kosongkan jika tidak diubah"
+          iconname="key-outline"
+          secureTextEntry
+          value={data.newpassword}
+          onChangeText={value =>
+            setData({
+              ...data,
+              newpassword: value,
+            })
+          }
+        />
 
-        <MyGap jarak={20} />
+        <MyGap jarak={10} />
         <MyInput
           label="Nama Lengkap"
           iconname="person-outline"
@@ -193,20 +210,84 @@ export default function EditProfile({ navigation, route }) {
             })
           }
         />
+
         <MyGap jarak={10} />
         <MyInput
-          label="Password"
-          placeholder="Kosongkan jika tidak diubah"
-          iconname="key-outline"
-          secureTextEntry
-          value={data.newpassword}
+          label="Divisi"
+          iconname="school-outline"
+          value={data.divisi}
           onChangeText={value =>
             setData({
               ...data,
-              newpassword: value,
+              divisi: value,
             })
           }
         />
+        <MyGap jarak={10} />
+        <MyInput
+          label="Jabatan"
+          iconname="albums-outline"
+          value={data.jabatan}
+          onChangeText={value =>
+            setData({
+              ...data,
+              jabatan: value,
+            })
+          }
+        />
+
+        <MyGap jarak={10} /><MyInput label='jenis_kelamin' iconname='albums-outline' value={data.jenis_kelamin} onChangeText={value => setData({ ...data, jenis_kelamin: value, })} />
+
+        <MyPicker label="Jenis Kelamin" iconname="apps-outline" data={
+          [
+            {
+              'label': 'Laki-laki',
+              'value': 'Laki-laki'
+            },
+            {
+              'label': 'Perempuan',
+              'value': 'Perempuan'
+            }
+          ]
+        } onValueChange={val => setData({ ...data, jenis_kelamin: val })} />
+
+
+        <MyGap jarak={10} /><MyInput label='tempat_lahir' iconname='albums-outline' value={data.tempat_lahir} onChangeText={value => setData({ ...data, tempat_lahir: value, })} />
+
+        <Text style={{
+          marginVertical: 5,
+          fontFamily: fonts.secondary[600],
+          color: colors.primary,
+          fontSize: windowWidth / 25,
+        }}>Tanggal Lahir</Text>
+        <DatePicker title="tanggal_lahir" mode="date" date={data.tanggal_lahir == null ? new Date() : new Date(data.tanggal_lahir)} onDateChange={val => setData({
+          ...data,
+          tanggal_lahir: val
+        })} />
+        <MyGap jarak={10} /><MyInput label='agama' iconname='albums-outline' value={data.agama} onChangeText={value => setData({ ...data, agama: value, })} />
+        <MyGap jarak={10} /><MyInput label='suku' iconname='albums-outline' value={data.suku} onChangeText={value => setData({ ...data, suku: value, })} />
+        <MyGap jarak={10} /><MyInput label='kewarganegaraan' iconname='albums-outline' value={data.kewarganegaraan} onChangeText={value => setData({ ...data, kewarganegaraan: value, })} />
+        <MyGap jarak={10} /><MyInput label='status' iconname='albums-outline' value={data.status} onChangeText={value => setData({ ...data, status: value, })} />
+        <MyGap jarak={10} /><MyInput label='golongan_darah' iconname='albums-outline' value={data.golongan_darah} onChangeText={value => setData({ ...data, golongan_darah: value, })} />
+        <MyGap jarak={10} /><MyInput label='ktp' iconname='albums-outline' value={data.ktp} onChangeText={value => setData({ ...data, ktp: value, })} />
+        <MyGap jarak={10} /><MyInput label='npwp' iconname='albums-outline' value={data.npwp} onChangeText={value => setData({ ...data, npwp: value, })} />
+        <MyGap jarak={10} /><MyInput label='sim_a' iconname='albums-outline' value={data.sim_a} onChangeText={value => setData({ ...data, sim_a: value, })} />
+        <MyGap jarak={10} /><MyInput label='sim_c' iconname='albums-outline' value={data.sim_c} onChangeText={value => setData({ ...data, sim_c: value, })} />
+        <MyGap jarak={10} /><MyInput label='sd' iconname='albums-outline' value={data.sd} onChangeText={value => setData({ ...data, sd: value, })} />
+        <MyGap jarak={10} /><MyInput label='smp' iconname='albums-outline' value={data.smp} onChangeText={value => setData({ ...data, smp: value, })} />
+        <MyGap jarak={10} /><MyInput label='sma' iconname='albums-outline' value={data.sma} onChangeText={value => setData({ ...data, sma: value, })} />
+        <MyGap jarak={10} /><MyInput label='d1' iconname='albums-outline' value={data.d1} onChangeText={value => setData({ ...data, d1: value, })} />
+        <MyGap jarak={10} /><MyInput label='d3' iconname='albums-outline' value={data.d3} onChangeText={value => setData({ ...data, d3: value, })} />
+        <MyGap jarak={10} /><MyInput label='s1' iconname='albums-outline' value={data.s1} onChangeText={value => setData({ ...data, s1: value, })} />
+        <MyGap jarak={10} /><MyInput label='s2' iconname='albums-outline' value={data.s2} onChangeText={value => setData({ ...data, s2: value, })} />
+        <MyGap jarak={10} /><MyInput label='kursus' iconname='albums-outline' value={data.kursus} onChangeText={value => setData({ ...data, kursus: value, })} />
+        <MyGap jarak={10} /><MyInput label='instagram' iconname='albums-outline' value={data.instagram} onChangeText={value => setData({ ...data, instagram: value, })} />
+        <MyGap jarak={10} /><MyInput label='facebook' iconname='albums-outline' value={data.facebook} onChangeText={value => setData({ ...data, facebook: value, })} />
+        <MyGap jarak={10} /><MyInput label='twitter' iconname='albums-outline' value={data.twitter} onChangeText={value => setData({ ...data, twitter: value, })} />
+        <MyGap jarak={10} /><MyInput label='linkedin' iconname='albums-outline' value={data.linkedin} onChangeText={value => setData({ ...data, linkedin: value, })} />
+        <MyGap jarak={10} /><MyInput label='hobi' iconname='albums-outline' value={data.hobi} onChangeText={value => setData({ ...data, hobi: value, })} />
+
+
         <MyGap jarak={20} />
       </ScrollView>
 

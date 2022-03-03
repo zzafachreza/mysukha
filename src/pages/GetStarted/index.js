@@ -11,14 +11,14 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import {MyButton, MyGap} from '../../components';
-import {colors} from '../../utils/colors';
-import {color} from 'react-native-reanimated';
-import {fonts} from '../../utils/fonts';
+import { MyButton, MyGap } from '../../components';
+import { colors } from '../../utils/colors';
+import { color } from 'react-native-reanimated';
+import { fonts } from '../../utils/fonts';
 import LottieView from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 
-export default function GetStarted({navigation}) {
+export default function GetStarted({ navigation }) {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
 
@@ -72,15 +72,15 @@ export default function GetStarted({navigation}) {
       <MyGap jarak={20} />
 
       <MyButton
-        title="DAFTAR"
-        iconColor={colors.black}
-        Icons="book-outline"
-        colorText={colors.black}
-        warna={colors.tertiary}
+        title="REGISTER"
+        iconColor={colors.white}
+        Icons="create-outline"
+        colorText={colors.white}
+        warna={colors.secondary}
         onPress={() => navigation.navigate('Register')}
       />
 
-      <Animated.View style={{height: top}} />
+      <Animated.View style={{ height: top }} />
     </SafeAreaView>
   );
 }
