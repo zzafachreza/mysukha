@@ -78,7 +78,7 @@ export default function Home({ navigation }) {
 
         axios
           .post('https://mysukha.zavalabs.com/api/update_token.php', {
-            id: user.id,
+            id: users.id,
             token: res.token,
           })
           .then(res => {
@@ -215,6 +215,14 @@ export default function Home({ navigation }) {
                 }}>
                 {user.divisi} - {user.jabatan}
               </Text>
+              <Text
+                style={{
+                  fontSize: windowWidth / 25,
+                  color: colors.black,
+                  fontFamily: fonts.secondary[600],
+                }}>
+                {user.nama}
+              </Text>
             </View>
             <View
               style={{
@@ -223,8 +231,8 @@ export default function Home({ navigation }) {
 
               }}>
               <Image
-                source={require('../../assets/logo2.png')}
-                style={{ width: 150, height: 30 }}
+                source={{ uri: 'https://mysukha.zavalabs.com/' + user.foto }}
+                style={{ width: 150, height: 80, resizeMode: 'contain' }}
               />
             </View>
 

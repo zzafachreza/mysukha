@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,16 +7,16 @@ import {
   Image,
   Linking,
 } from 'react-native';
-import {windowWidth, fonts} from '../../utils/fonts';
-import {getData, storeData} from '../../utils/localStorage';
-import {colors} from '../../utils/colors';
-import {MyButton, MyGap} from '../../components';
-import {Icon} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useIsFocused} from '@react-navigation/native';
+import { windowWidth, fonts } from '../../utils/fonts';
+import { getData, storeData } from '../../utils/localStorage';
+import { colors } from '../../utils/colors';
+import { MyButton, MyGap } from '../../components';
+import { Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
-export default function Account({navigation, route}) {
+export default function Account({ navigation, route }) {
   const [user, setUser] = useState({});
   const [com, setCom] = useState({});
   const isFocused = useIsFocused();
@@ -48,14 +48,14 @@ export default function Account({navigation, route}) {
   const kirimWa = x => {
     Linking.openURL(
       'https://api.whatsapp.com/send?phone=' +
-        x +
-        '&text=Halo%20NIAGA%20BUSANA',
+      x +
+      '&text=Halo%20NIAGA%20BUSANA',
     );
   };
 
   return (
     <SafeAreaView>
-      <View style={{padding: 10}}>
+      <View style={{ padding: 10 }}>
         <View
           style={{
             justifyContent: 'center',
@@ -80,7 +80,7 @@ export default function Account({navigation, route}) {
           </Text>
         </View>
         {/* data detail */}
-        <View style={{padding: 10}}>
+        <View style={{ padding: 10 }}>
           <MyButton
             onPress={() => navigation.navigate('EditProfile', user)}
             title="Edit Profile"
@@ -180,11 +180,33 @@ export default function Account({navigation, route}) {
                 {user.jabatan}
               </Text>
             </View>
+            <View
+              style={{
+                marginVertical: 5,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                }}>
+                Perusahaan
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  color: colors.primary,
+                }}>
+                {user.nama}
+              </Text>
+            </View>
           </View>
         </View>
 
         {/* button */}
-        <View style={{padding: 10}}>
+        <View style={{ padding: 10 }}>
           <MyButton
             onPress={btnKeluar}
             title="Keluar"

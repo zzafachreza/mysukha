@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -110,6 +110,18 @@ export default function Register({ navigation }) {
         });
     }
   };
+
+
+  const [dataCompany, serDataCompany] = useState([]);
+  useEffect(() => {
+
+    axios.post('https://mysukha.zavalabs.com/api/perusahaan.php').then(res => {
+      serDataCompany(res.data);
+    })
+
+  }, [])
+
+
   return (
     <ImageBackground
       source={require('../../assets/back.jpeg')}
@@ -135,6 +147,17 @@ export default function Register({ navigation }) {
           aplikasi
         </Text>
 
+        <MyPicker
+          onValueChange={x =>
+            setData({
+              ...data,
+              fid_company: x,
+            })
+          }
+          iconname="list"
+          label="Pilih Perushaan"
+          data={dataCompany}
+        />
         <MyGap jarak={20} />
         <MyInput
           fontColor={isEnabled ? colors.white : colors.black}
