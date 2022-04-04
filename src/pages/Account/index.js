@@ -22,20 +22,15 @@ export default function Account({ navigation, route }) {
   const isFocused = useIsFocused();
   const [wa, setWA] = useState('');
 
-  const getWa = () => {
-    axios.get('https://zavalabs.com/niagabusana/api/company.php').then(res => {
-      setCom(res.data);
-      console.log(res);
-    });
-  };
+
 
   useEffect(() => {
     if (isFocused) {
       getData('user').then(res => {
         setUser(res);
-        // console.log(user);
+        console.error(res);
       });
-      getWa();
+
     }
   }, [isFocused]);
 

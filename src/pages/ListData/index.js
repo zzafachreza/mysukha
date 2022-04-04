@@ -110,7 +110,7 @@ export default function ({ navigation, route }) {
             style={{
               fontSize: windowWidth / 30,
               textAlign: 'center',
-              backgroundColor: item.tipe == "KANTOR" ? colors.primary : colors.zavalabs2,
+              backgroundColor: item.tipe == "KANTOR" ? colors.primary : colors.secondary,
               color: colors.white,
               paddingHorizontal: 10,
             }}>

@@ -28,15 +28,7 @@ export default function EditProfile({ navigation, route }) {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({
-    nama_lengkap: null,
-    email: null,
-    password: null,
-    tlp: null,
-    alamat: null,
-    divisi: null,
-    jabatan: null,
-  });
+  const [data, setData] = useState({});
 
   const options = {
     includeBase64: true,
@@ -97,7 +89,7 @@ export default function EditProfile({ navigation, route }) {
   useEffect(() => {
     getData('user').then(res => {
       setData(res);
-      console.log(res);
+      console.error('data user', res);
     });
     console.log('test edit');
   }, []);
@@ -252,7 +244,7 @@ export default function EditProfile({ navigation, route }) {
         } onValueChange={val => setData({ ...data, jenis_kelamin: val })} />
 
 
-        <MyGap jarak={10} /><MyInput label='tempat_lahir' iconname='albums-outline' value={data.tempat_lahir} onChangeText={value => setData({ ...data, tempat_lahir: value, })} />
+        <MyGap jarak={10} /><MyInput label='Tempat Lahir' iconname='albums-outline' value={data.tempat_lahir} onChangeText={value => setData({ ...data, tempat_lahir: value, })} />
 
         <Text style={{
           marginVertical: 5,
@@ -260,32 +252,32 @@ export default function EditProfile({ navigation, route }) {
           color: colors.primary,
           fontSize: windowWidth / 25,
         }}>Tanggal Lahir</Text>
-        <DatePicker title="tanggal_lahir" mode="date" date={data.tanggal_lahir == null ? new Date() : new Date(data.tanggal_lahir)} onDateChange={val => setData({
+        <DatePicker title="Tanggal Lahir" mode="date" date={data.tanggal_lahir == null ? new Date() : new Date(data.tanggal_lahir)} onDateChange={val => setData({
           ...data,
           tanggal_lahir: val
         })} />
-        <MyGap jarak={10} /><MyInput label='agama' iconname='albums-outline' value={data.agama} onChangeText={value => setData({ ...data, agama: value, })} />
-        <MyGap jarak={10} /><MyInput label='suku' iconname='albums-outline' value={data.suku} onChangeText={value => setData({ ...data, suku: value, })} />
-        <MyGap jarak={10} /><MyInput label='kewarganegaraan' iconname='albums-outline' value={data.kewarganegaraan} onChangeText={value => setData({ ...data, kewarganegaraan: value, })} />
-        <MyGap jarak={10} /><MyInput label='status' iconname='albums-outline' value={data.status} onChangeText={value => setData({ ...data, status: value, })} />
-        <MyGap jarak={10} /><MyInput label='golongan_darah' iconname='albums-outline' value={data.golongan_darah} onChangeText={value => setData({ ...data, golongan_darah: value, })} />
-        <MyGap jarak={10} /><MyInput label='ktp' iconname='albums-outline' value={data.ktp} onChangeText={value => setData({ ...data, ktp: value, })} />
-        <MyGap jarak={10} /><MyInput label='npwp' iconname='albums-outline' value={data.npwp} onChangeText={value => setData({ ...data, npwp: value, })} />
-        <MyGap jarak={10} /><MyInput label='sim_a' iconname='albums-outline' value={data.sim_a} onChangeText={value => setData({ ...data, sim_a: value, })} />
-        <MyGap jarak={10} /><MyInput label='sim_c' iconname='albums-outline' value={data.sim_c} onChangeText={value => setData({ ...data, sim_c: value, })} />
-        <MyGap jarak={10} /><MyInput label='sd' iconname='albums-outline' value={data.sd} onChangeText={value => setData({ ...data, sd: value, })} />
-        <MyGap jarak={10} /><MyInput label='smp' iconname='albums-outline' value={data.smp} onChangeText={value => setData({ ...data, smp: value, })} />
-        <MyGap jarak={10} /><MyInput label='sma' iconname='albums-outline' value={data.sma} onChangeText={value => setData({ ...data, sma: value, })} />
-        <MyGap jarak={10} /><MyInput label='d1' iconname='albums-outline' value={data.d1} onChangeText={value => setData({ ...data, d1: value, })} />
-        <MyGap jarak={10} /><MyInput label='d3' iconname='albums-outline' value={data.d3} onChangeText={value => setData({ ...data, d3: value, })} />
-        <MyGap jarak={10} /><MyInput label='s1' iconname='albums-outline' value={data.s1} onChangeText={value => setData({ ...data, s1: value, })} />
-        <MyGap jarak={10} /><MyInput label='s2' iconname='albums-outline' value={data.s2} onChangeText={value => setData({ ...data, s2: value, })} />
-        <MyGap jarak={10} /><MyInput label='kursus' iconname='albums-outline' value={data.kursus} onChangeText={value => setData({ ...data, kursus: value, })} />
-        <MyGap jarak={10} /><MyInput label='instagram' iconname='albums-outline' value={data.instagram} onChangeText={value => setData({ ...data, instagram: value, })} />
-        <MyGap jarak={10} /><MyInput label='facebook' iconname='albums-outline' value={data.facebook} onChangeText={value => setData({ ...data, facebook: value, })} />
-        <MyGap jarak={10} /><MyInput label='twitter' iconname='albums-outline' value={data.twitter} onChangeText={value => setData({ ...data, twitter: value, })} />
-        <MyGap jarak={10} /><MyInput label='linkedin' iconname='albums-outline' value={data.linkedin} onChangeText={value => setData({ ...data, linkedin: value, })} />
-        <MyGap jarak={10} /><MyInput label='hobi' iconname='albums-outline' value={data.hobi} onChangeText={value => setData({ ...data, hobi: value, })} />
+        <MyGap jarak={10} /><MyInput label='Agama' iconname='albums-outline' value={data.agama} onChangeText={value => setData({ ...data, agama: value, })} />
+        <MyGap jarak={10} /><MyInput label='Suku' iconname='albums-outline' value={data.suku} onChangeText={value => setData({ ...data, suku: value, })} />
+        <MyGap jarak={10} /><MyInput label='Kewarganegaraan' iconname='albums-outline' value={data.kewarganegaraan} onChangeText={value => setData({ ...data, kewarganegaraan: value, })} />
+        <MyGap jarak={10} /><MyInput label='Status' iconname='albums-outline' value={data.status} onChangeText={value => setData({ ...data, status: value, })} />
+        <MyGap jarak={10} /><MyInput label='Golongan Darah' iconname='albums-outline' value={data.golongan_darah} onChangeText={value => setData({ ...data, golongan_darah: value, })} />
+        <MyGap jarak={10} /><MyInput label='No. KTP' iconname='albums-outline' value={data.ktp} onChangeText={value => setData({ ...data, ktp: value, })} />
+        <MyGap jarak={10} /><MyInput label='NPWP' iconname='albums-outline' value={data.npwp} onChangeText={value => setData({ ...data, npwp: value, })} />
+        <MyGap jarak={10} /><MyInput label='SIM A' iconname='albums-outline' value={data.sim_a} onChangeText={value => setData({ ...data, sim_a: value, })} />
+        <MyGap jarak={10} /><MyInput label='SIM C' iconname='albums-outline' value={data.sim_c} onChangeText={value => setData({ ...data, sim_c: value, })} />
+        <MyGap jarak={10} /><MyInput label='SD' iconname='albums-outline' value={data.sd} onChangeText={value => setData({ ...data, sd: value, })} />
+        <MyGap jarak={10} /><MyInput label='SMP' iconname='albums-outline' value={data.smp} onChangeText={value => setData({ ...data, smp: value, })} />
+        <MyGap jarak={10} /><MyInput label='SMA' iconname='albums-outline' value={data.sma} onChangeText={value => setData({ ...data, sma: value, })} />
+        <MyGap jarak={10} /><MyInput label='D1' iconname='albums-outline' value={data.d1} onChangeText={value => setData({ ...data, d1: value, })} />
+        <MyGap jarak={10} /><MyInput label='D3' iconname='albums-outline' value={data.d3} onChangeText={value => setData({ ...data, d3: value, })} />
+        <MyGap jarak={10} /><MyInput label='S1' iconname='albums-outline' value={data.s1} onChangeText={value => setData({ ...data, s1: value, })} />
+        <MyGap jarak={10} /><MyInput label='S2' iconname='albums-outline' value={data.s2} onChangeText={value => setData({ ...data, s2: value, })} />
+        <MyGap jarak={10} /><MyInput label='Kursus' iconname='albums-outline' value={data.kursus} onChangeText={value => setData({ ...data, kursus: value, })} />
+        <MyGap jarak={10} /><MyInput label='Instagram' iconname='albums-outline' value={data.instagram} onChangeText={value => setData({ ...data, instagram: value, })} />
+        <MyGap jarak={10} /><MyInput label='Facebook' iconname='albums-outline' value={data.facebook} onChangeText={value => setData({ ...data, facebook: value, })} />
+        <MyGap jarak={10} /><MyInput label='Twitter' iconname='albums-outline' value={data.twitter} onChangeText={value => setData({ ...data, twitter: value, })} />
+        <MyGap jarak={10} /><MyInput label='Linkedin' iconname='albums-outline' value={data.linkedin} onChangeText={value => setData({ ...data, linkedin: value, })} />
+        <MyGap jarak={10} /><MyInput label='Hobi' iconname='albums-outline' value={data.hobi} onChangeText={value => setData({ ...data, hobi: value, })} />
 
 
         <MyGap jarak={20} />
