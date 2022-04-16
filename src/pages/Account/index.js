@@ -51,6 +51,14 @@ export default function Account({ navigation, route }) {
   return (
     <SafeAreaView>
       <View style={{ padding: 10 }}>
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Image source={{
+            uri: user.foto_user,
+          }} style={{ width: 120, height: 120, borderRadius: 10, }} />
+        </View>
         <View
           style={{
             justifyContent: 'center',
@@ -129,6 +137,28 @@ export default function Account({ navigation, route }) {
                   color: colors.primary,
                 }}>
                 {user.telepon}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginVertical: 5,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                }}>
+                Alamat
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  color: colors.primary,
+                }}>
+                {user.alamat}
               </Text>
             </View>
             <View

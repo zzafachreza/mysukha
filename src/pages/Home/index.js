@@ -11,7 +11,9 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
   Linking,
+  PermissionsAndroid,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { colors } from '../../utils/colors';
 import { fonts } from '../../utils/fonts';
@@ -34,15 +36,77 @@ export default function Home({ navigation }) {
   const [tipe, setTipe] = useState('');
   const [company, setCompany] = useState({});
 
+  const [absen, setAbsen] = useState(false);
 
 
 
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Izinkan Untuk Akses Lokasi',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.error("You can use the camera");
+        setAbsen(true);
+      } else {
+
+        // requestCameraPermission();
+        Alert.alert('Izin Lokasi Belum Aktif', 'Izinkan sekarang agar bisa melakukan absen',
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => requestCameraPermission2() }
+          ])
+
+        console.error("Camera permission denied");
+
+        setAbsen(false);
+      }
+    } catch (err) {
+      console.warn(err);
+
+    }
+  };
+
+
+  const requestCameraPermission2 = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Izinkan Untuk Akses Lokasi',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.error("You can use the camera");
+        setAbsen(true);
+      } else {
+
+        console.error("Camera permission denied");
+
+        setAbsen(false);
+      }
+    } catch (err) {
+      console.warn(err);
+
+    }
+  };
 
 
 
   useEffect(() => {
 
-
+    requestCameraPermission();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
 
       const json = JSON.stringify(remoteMessage);
@@ -189,7 +253,7 @@ export default function Home({ navigation }) {
           }}>
 
           <View style={{ flex: 1, paddingTop: 10, flexDirection: 'row' }}>
-            <View style={{ paddingLeft: 10, flex: 1 }}>
+            <View style={{ paddingLeft: 10, flex: 3 }}>
 
               <Text
                 style={{
@@ -201,7 +265,7 @@ export default function Home({ navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: windowWidth / 25,
+                  fontSize: windowWidth / 30,
                   color: colors.black,
                   fontFamily: fonts.secondary[600],
                 }}>
@@ -209,7 +273,7 @@ export default function Home({ navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: windowWidth / 25,
+                  fontSize: windowWidth / 30,
                   color: colors.black,
                   fontFamily: fonts.secondary[600],
                 }}>
@@ -217,7 +281,7 @@ export default function Home({ navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: windowWidth / 25,
+                  fontSize: windowWidth / 30,
                   color: colors.black,
                   fontFamily: fonts.secondary[600],
                 }}>
@@ -226,13 +290,17 @@ export default function Home({ navigation }) {
             </View>
             <View
               style={{
+                flex: 1,
+
                 padding: 10,
-                justifyContent: 'center'
+                justifyContent: 'center',
+                alignItems: 'flex-end'
+
 
               }}>
               <Image
                 source={{ uri: 'https://mysukha.zavalabs.com/' + user.foto }}
-                style={{ width: 150, height: 80, resizeMode: 'contain' }}
+                style={{ width: 50, aspectRatio: 1, resizeMode: 'contain' }}
               />
             </View>
 
@@ -255,13 +323,20 @@ export default function Home({ navigation }) {
               justifyContent: 'space-around',
               marginTop: 0,
             }}>
-            <DataKategori
+            {absen && <DataKategori
               warna={colors.primary}
               onPress={() => navigation.navigate('Jenis')}
               icon="camera-outline"
               nama="ABSEN"
               nama2="ONLINE"
-            />
+            />}
+            {!absen && <DataKategori
+              warna={colors.border}
+              onPress={() => requestCameraPermission2()}
+              icon="camera-outline"
+              nama="IZIN LOKASI"
+              nama2="BELUM AKTIF"
+            />}
             <DataKategori
               warna={colors.primary}
               onPress={() => navigation.navigate('SuratIzin')}

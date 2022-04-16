@@ -29,6 +29,7 @@ export default function EditProfile({ navigation, route }) {
   const windowHeight = Dimensions.get('window').height;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
+  const [foto, setfoto] = useState('https://zavalabs.com/nogambar.jpg');
 
   const options = {
     includeBase64: true,
@@ -48,7 +49,7 @@ export default function EditProfile({ navigation, route }) {
           case 1:
             setData({
               ...data,
-              foto: `data:${response.type};base64, ${response.base64}`,
+              foto_user: `data:${response.type};base64, ${response.base64}`,
             });
             break;
         }
@@ -72,7 +73,7 @@ export default function EditProfile({ navigation, route }) {
             case 1:
               setData({
                 ...data,
-                foto: `data:${response.type};base64, ${response.base64}`,
+                foto_user: `data:${response.type};base64, ${response.base64}`,
               });
               break;
           }
@@ -85,6 +86,70 @@ export default function EditProfile({ navigation, route }) {
       }
     });
   };
+
+  const UploadFoto = ({ onPress1, onPress2, label, foto }) => {
+    return (
+      <View
+        style={{
+          padding: 10,
+          backgroundColor: colors.white,
+          marginVertical: 10,
+          borderWidth: 1,
+          borderRadius: 10,
+          borderColor: colors.border,
+          elevation: 2,
+        }}>
+        <Text
+          style={{
+            fontFamily: fonts.secondary[600],
+            color: colors.black,
+          }}>
+          {label}
+        </Text>
+        <Image
+          source={{
+            uri: data.foto_user,
+          }}
+          style={{
+            width: '100%',
+            aspectRatio: 2,
+            resizeMode: 'contain',
+          }}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <View
+            style={{
+              flex: 1,
+              paddingRight: 5,
+            }}>
+            <MyButton
+              onPress={onPress1}
+              colorText={colors.white}
+              title="KAMERA"
+              warna={colors.primary}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              paddingLeft: 5,
+            }}>
+            <MyButton
+              onPress={onPress2}
+              title="GALLERY"
+              colorText={colors.white}
+              warna={colors.secondary}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+
 
   useEffect(() => {
     getData('user').then(res => {
@@ -136,6 +201,14 @@ export default function EditProfile({ navigation, route }) {
             />
           </View>
         </View>
+        <MyGap jarak={5} />
+
+        <UploadFoto
+          onPress1={() => getCamera(1)}
+          onPress2={() => getGallery(1)}
+          label="Upload Foto Profile"
+          foto={foto}
+        />
         <MyGap jarak={10} />
         <MyInput
           label="NIP"
@@ -203,6 +276,21 @@ export default function EditProfile({ navigation, route }) {
           }
         />
 
+
+        <MyGap jarak={10} />
+        <MyInput
+          label="Alamat"
+          iconname="map-outline"
+          multiline={true}
+          value={data.alamat}
+          onChangeText={value =>
+            setData({
+              ...data,
+              alamat: value,
+            })
+          }
+        />
+
         <MyGap jarak={10} />
         <MyInput
           label="Divisi"
@@ -228,7 +316,6 @@ export default function EditProfile({ navigation, route }) {
           }
         />
 
-        <MyGap jarak={10} /><MyInput label='jenis_kelamin' iconname='albums-outline' value={data.jenis_kelamin} onChangeText={value => setData({ ...data, jenis_kelamin: value, })} />
 
         <MyPicker label="Jenis Kelamin" iconname="apps-outline" data={
           [

@@ -54,7 +54,7 @@ export default function Splash({ navigation }) {
   };
 
   useEffect(() => {
-    requestCameraPermission();
+    // requestCameraPermission();
 
     const unsubscribe = getData('user').then(res => {
       // console.log(res);

@@ -155,7 +155,7 @@ export default function Register({ navigation }) {
             })
           }
           iconname="list"
-          label="Pilih Perushaan"
+          label="Pilih Perusahaan"
           data={dataCompany}
         />
         <MyGap jarak={20} />

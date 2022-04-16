@@ -49,6 +49,7 @@ export default function Masuk({ navigation, route }) {
     quality: 0.5,
     maxWidth: 300,
     maxHeight: 300,
+    cameraType: 'front'
   };
 
   const getCamera = xyz => {
