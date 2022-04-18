@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   Linking,
+  ScrollView,
 } from 'react-native';
 import { windowWidth, fonts } from '../../utils/fonts';
 import { getData, storeData } from '../../utils/localStorage';
@@ -50,7 +51,7 @@ export default function Account({ navigation, route }) {
 
   return (
     <SafeAreaView>
-      <View style={{ padding: 10 }}>
+      <ScrollView style={{ padding: 10 }}>
         <View style={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -241,7 +242,7 @@ export default function Account({ navigation, route }) {
             Icons="log-out-outline"
           />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

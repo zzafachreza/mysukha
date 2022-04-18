@@ -5,6 +5,7 @@ import {
   Button,
   View,
   Image,
+  PermissionsAndroid,
   ScrollView,
   ImageBackground,
   Dimensions,
@@ -76,9 +77,29 @@ export default function Masuk({ navigation, route }) {
     });
   };
 
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Izinkan Untuk Akses Kamera',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use Location');
+      } else {
+        console.log('Location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   useEffect(() => {
 
-
+    requestCameraPermission();
     axios
       .get('https://pentarapanputra.zavalabs.com/api/company.php')
       .then(tol => {
