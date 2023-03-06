@@ -39,7 +39,7 @@ export default function ({ navigation, route }) {
 
     const updateStatusAsset = (x, y) => {
         // alert(x + ' ' + y);
-        axios.post('https://mysukha.zavalabs.com/api/absen_asset_update.php', {
+        axios.post('https://absensi.mysukha.id/api/absen_asset_update.php', {
             id_asset: x,
             status_asset: y,
         }).then(res => {
@@ -70,7 +70,7 @@ export default function ({ navigation, route }) {
     const getDataBarang = () => {
         getData('user').then(res => {
             axios
-                .post('https://mysukha.zavalabs.com/api/absen_asset.php', {
+                .post('https://absensi.mysukha.id/api/absen_asset.php', {
                     id_user: res.id,
                 })
                 .then(x => {

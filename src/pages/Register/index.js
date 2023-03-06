@@ -86,7 +86,7 @@ export default function Register({ navigation }) {
       setLoading(true);
       console.log(data);
       axios
-        .post('https://mysukha.zavalabs.com/api/register.php', data)
+        .post('https://absensi.mysukha.id/api/register.php', data)
         .then(res => {
           console.warn(res.data);
           let err = res.data.split('#');
@@ -115,7 +115,7 @@ export default function Register({ navigation }) {
   const [dataCompany, serDataCompany] = useState([]);
   useEffect(() => {
 
-    axios.post('https://mysukha.zavalabs.com/api/perusahaan.php').then(res => {
+    axios.post('https://absensi.mysukha.id/api/perusahaan.php').then(res => {
       serDataCompany(res.data);
     })
 

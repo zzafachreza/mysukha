@@ -163,7 +163,7 @@ export default function Masuk({ navigation, route }) {
 
 
       axios
-        .post('https://mysukha.zavalabs.com/api/absen_add.php', kirim)
+        .post('https://absensi.mysukha.id/api/absen_add.php', kirim)
         .then(x => {
           setLoading(false);
           alert('Absensi Masuk Berhasil Di Kirim');

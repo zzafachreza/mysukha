@@ -56,7 +56,7 @@ export default function Login({ navigation }) {
       console.log(data);
       setTimeout(() => {
         axios
-          .post('https://mysukha.zavalabs.com/api/login.php', data)
+          .post('https://absensi.mysukha.id/api/login.php', data)
           .then(res => {
             console.log(res.data);
             setLoading(false);
@@ -68,7 +68,7 @@ export default function Login({ navigation }) {
             } else {
               storeData('user', res.data);
               axios
-                .post('https://mysukha.zavalabs.com/api/update_token.php', {
+                .post('https://absensi.mysukha.id/api/update_token.php', {
                   id_member: res.data.id,
                   token: token,
                 })

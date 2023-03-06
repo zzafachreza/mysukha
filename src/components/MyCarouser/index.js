@@ -23,7 +23,7 @@ export default function MyCarouser() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get('https://mysukha.zavalabs.com/api/slider.php').then(res => {
+    axios.get('https://absensi.mysukha.id/api/slider.php').then(res => {
       console.log(res.data);
       setData(res.data);
     });

@@ -201,7 +201,7 @@ export default function SuratIzin({ navigation }) {
     setLoading(true);
 
     axios
-      .post('https://mysukha.zavalabs.com/api/absen_izin_add.php', data)
+      .post('https://absensi.mysukha.id/api/absen_izin_add.php', data)
       .then(x => {
         setLoading(false);
         alert('Surat Izin Berhasil Di Kirim');

@@ -141,7 +141,7 @@ export default function Home({ navigation }) {
         setToken(res.token);
 
         axios
-          .post('https://mysukha.zavalabs.com/api/update_token.php', {
+          .post('https://absensi.mysukha.id/api/update_token.php', {
             id: users.id,
             token: res.token,
           })
